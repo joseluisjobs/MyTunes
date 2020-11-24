@@ -1,0 +1,17 @@
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">
+            Álbumes mas populares
+        </h2>   
+        <div class="card" style="width: 20rem; display: inline-block; margin: 10px;" *ngFor="let album of albums" >
+            <img class="card-img-top" src={{album.image}} alt="Card image cap">
+            <div class="card-body" >
+                <h5 class="card-title">{{album.name}}</h5>
+                <p class="card-text">{{album.artistName}}</p>
+                <button type="button" (click)="onClick(album);" style="display: flex; margin-bottom:5px;" class="btn btn-secondary">Detalles</button>
+                <button type="button" [hidden]='album.purchased' (click)="buyAlbum(album)" class="btn btn-primary"> Precio: {{album.price}}</button>
+                <button type="button" [hidden]='!album.purchased' [disabled]='album.purchased' class="btn btn-primary"> Comprado</button>
+            </div>
+        </div>
+    </div>
+</div>

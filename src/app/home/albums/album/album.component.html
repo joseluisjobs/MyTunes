@@ -1,0 +1,94 @@
+<div *ngIf="selectedAlbum" class="card">
+    <div class="card-body">
+
+        <h3 class="card-title">
+        <img src={{selectedAlbum.image}} width="150px" height="150px"/>
+        </h3>
+        <h3 class="card-title">
+        {{selectedAlbum.name}}
+        </h3>
+        <div class="card-text">
+            <div class="form-group">
+                Descripcion: {{selectedAlbum.descripcion}}
+            </div>
+            <div class="form-group">
+                Artista: {{selectedAlbum.artistName}}
+            </div>
+            <div class="form-group">
+                Fecha de lanzamiento: {{selectedAlbum.date}}
+            </div>
+            <div class="form-group">
+                Genero: {{selectedAlbum.genres}}
+            </div>
+            <div class="form-group">
+                Puntuacion: <br/>
+                <ngb-rating [(rate)]="selectedAlbum.score" [max]="5">
+                    <ng-template let-fill="fill">
+                        <span class="star" [class.full]="fill === 100">
+                            <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+                        </span>
+                    </ng-template>
+                </ngb-rating>
+            </div>
+            <div class="form-group">
+                <button type="button" [hidden]='selectedAlbum.purchased' (click)="buyAlbum()" class="btn btn-primary"> Precio: {{selectedAlbum.price}}</button>
+                <button type="button" [hidden]='!selectedAlbum.purchased' [disabled]='selectedAlbum.purchased' class="btn btn-primary"> Comprado</button>
+            </div>
+            <div class="card-text">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <th>Nombre</th>
+                            <th>Artista</th>
+                            <th>Popularidad</th>
+                            <th>Precio</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let song of selectedAlbum.songList" (click)="onClick(song);">
+                                <td>
+                                    {{song.name}}
+                                </td>
+                                <td>
+                                    {{song.artistName}}
+                                </td>
+                                <td>
+                                    <ng-template #t let-fill="fill">
+                                        <span class="songStar" [class.full]="fill === 100">
+                                        <span class="songHalf" [style.width.%]="fill">&hearts;</span>&hearts;
+                                        </span>
+                                    </ng-template>
+                                    
+                                    <ngb-rating [(rate)]="song.popularity" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+                                </td>
+                                <td (click)="$event.stopPropagation()">
+                                    <button type="button" [hidden]='song.purchased' (click)="buySong(song)" class="btn btn-primary">{{song.price}}</button>
+                                    <button type="button" [hidden]='!song.purchased' [disabled]='song.purchased' class="btn btn-primary">Comprado</button> 
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <!-- <div class="form-group">
+                Estado:  <select name="selectedAlbum.State" id="selectedAlbum.State"  value={{selectedAlbum.State}} (change)='onStateChange($event)'>
+                    <option value=0>Pendiente</option>
+                    <option value=1>En Proceso</option>
+                    <option value=2>Terminado</option>
+                </select>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<!-- 
+export class Album{
+    id: number;
+    name: string;
+    artistName: string;
+    price: number;
+    genres: string;
+    score: number;
+    date: Date;
+    descripcion: string;
+    image: string;
+    songList: Array<Song>;
+} -->

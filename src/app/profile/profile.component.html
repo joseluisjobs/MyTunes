@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">
+            Tus álbums
+        </h2>   
+        <div class="card" style="width: 20rem; display: inline-block; margin: 10px;" *ngFor="let album of albums" >
+            <img class="card-img-top" src={{album.image}} alt="Card image cap">
+            <div class="card-body" >
+                <h5 class="card-title">{{album.name}}</h5>
+                <p class="card-text">{{album.artistName}}</p>
+                <button type="button" (click)="onClick(album);"  class="btn btn-primary">Detalles</button>
+            </div>
+        </div>
+    </div>
+</div>
